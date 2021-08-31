@@ -70,4 +70,10 @@ public class BallSpawner : MonoBehaviour
             yield return new WaitForSeconds(interval);
         }
     }
+
+    void Update()
+    {
+        if (numOfBalls > 25)
+            doInstantiate = false;
+    }
 }
