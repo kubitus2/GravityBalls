@@ -11,6 +11,9 @@ public class Sphere : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(this.transform.position.y < -20f)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
