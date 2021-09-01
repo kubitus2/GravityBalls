@@ -54,9 +54,9 @@ public class Ball : MonoBehaviour
 
     void Absorb(GameObject obj)
     {
-        float oldR = this.transform.localScale.x;
+        float oldR = this.transform.localScale.x / 2;
         float R = RecalculateRadius(this.transform.localScale.x, obj.transform.localScale.x);
-        float change = R - oldR;
+        float change = (R - oldR) * 2;
 
         this.transform.localScale += new Vector3(change, change, change);
         rb.mass += obj.GetComponent<Rigidbody>().mass;
