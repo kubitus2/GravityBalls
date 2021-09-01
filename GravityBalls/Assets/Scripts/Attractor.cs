@@ -4,38 +4,44 @@ using UnityEngine;
 
 public class Attractor : MonoBehaviour
 {
-    const float G = 66.7f;
-    public Rigidbody rb;
-    private static List<Attractor> Attractors;
+    public float mass;
+    public float speed;
 
+    private Rigidbody rb {get {return GetComponent<Rigidbody>();}}
+
+    void OnEnable()
+    {
+        Gravity.Register(this);
+    }
 
     void Awake()
     {
-        rb = this.gameObject.GetComponent<Rigidbody>();
+        mass = rb.mass;
     }
-    void Attract (Attractor objToAttract)
+
+    Vector3 CalculateForce()
     {
-        Rigidbody rbToAttract = objToAttract.rb;
-        Vector3 direction = rb.position - rbToAttract.position;
-        float distance = direction.magnitude;
+        Vector3 g = Vector3.zero;
 
-        float magnitude = G * (rb.mass * rbToAttract.mass) / Mathf.Pow(distance, 2);
-        Vector3 force = direction.normalized * magnitude;
-
-        rbToAttract.AddForce(force);
-    }
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        Attractor[] attractors = FindObjectsOfType<Attractor>();
-
-        if (attractors.Length > 1)
+        for (int i = 0; i < Gravity.attractors.Count; i++)
         {
-            foreach (Attractor a in attractors)
+            if(Gravity.attractors[i] != this)
             {
-                if(a != this)
-                Attract(a);
+                g += Gravity.GravityForce(this, Gravity.attractors[i]);
             }
         }
+
+        return g;
+    }
+
+    void FixedUpdate()
+    {
+        speed = rb.velocity.magnitude;
+        rb.AddForce(CalculateForce());
+    }
+
+    void OnDisable()
+    {
+        Gravity.Unregister(this);
     }
 }

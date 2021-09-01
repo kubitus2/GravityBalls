@@ -8,6 +8,10 @@ public class BallSpawner : MonoBehaviour
     int numOfBalls;
 
     [SerializeField]
+    [Range(2, 250)]
+    private int maxNumberOfBalls = 50;
+
+    [SerializeField]
     private GameObject prefab;
     [SerializeField]
     private float intervalBetweenSpawns;
@@ -73,7 +77,7 @@ public class BallSpawner : MonoBehaviour
 
     void Update()
     {
-        if (numOfBalls > 25)
+        if (numOfBalls > maxNumberOfBalls)
             doInstantiate = false;
     }
 }
