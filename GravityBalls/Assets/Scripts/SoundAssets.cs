@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class SoundAssets : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private static SoundAssets _i;
+
+    public static SoundAssets i 
     {
-        
+        get
+        {
+            if (_i == null)
+                _i = (Instantiate(Resources.Load("main")) as GameObject).GetComponent<SoundAssets>();
+            return _i; 
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public SoundAudioClip[] soundAudioClipArray;
+
+    [System.Serializable]
+    public class SoundAudioClip 
     {
-        
+        public AudioManager.Sound sound;
+        public AudioClip clip;
     }
 }
