@@ -31,7 +31,5 @@ public static class Gravity
     public static void Unregister (Attractor a)
     {
         attractors.Remove(a);
-    }
-
-    
+    }   
 }

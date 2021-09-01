@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BallSpawner : MonoBehaviour
 {
+    public delegate void RevertGravity();
+    public static event RevertGravity OnGravityRevert;
 
     int numOfBalls;
 
@@ -78,6 +80,10 @@ public class BallSpawner : MonoBehaviour
     void Update()
     {
         if (numOfBalls > maxNumberOfBalls)
+        {
             doInstantiate = false;
+            OnGravityRevert();
+        }
+            
     }
 }

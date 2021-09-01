@@ -11,8 +11,11 @@ public class Attractor : MonoBehaviour
 
     private Rigidbody rb {get {return GetComponent<Rigidbody>();}}
 
+    private float forceMultiplier;
+
     void OnEnable()
     {
+        BallSpawner.OnGravityRevert += RevertGravity;
         Gravity.Register(this);
 
         if (reactivated)
@@ -26,6 +29,7 @@ public class Attractor : MonoBehaviour
     {
         reactivated = false;
         mass = rb.mass;
+        forceMultiplier = 1.0f;
     }
 
     Vector3 CalculateForce()
@@ -36,7 +40,7 @@ public class Attractor : MonoBehaviour
         {
             if(Gravity.attractors[i] != this)
             {
-                g += Gravity.GravityForce(this, Gravity.attractors[i]);
+                g += Gravity.GravityForce(this, Gravity.attractors[i]) * forceMultiplier;
             }
         }
 
@@ -77,9 +81,14 @@ public class Attractor : MonoBehaviour
         yield return null;
     }
 
+    void RevertGravity()
+    {
+        forceMultiplier = -1.0f;
+    }
 
     void OnDisable()
     {
         Gravity.Unregister(this);
+        BallSpawner.OnGravityRevert -= RevertGravity;
     }
 }
