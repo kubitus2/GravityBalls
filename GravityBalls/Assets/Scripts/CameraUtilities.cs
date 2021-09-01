@@ -5,7 +5,8 @@ using UnityEngine;
 public static class CameraUtilities
 {
     private static Camera mainCamera = Camera.main;
-    private static float maxDistFromCamera = 30f;
+    private static float maxDistFromCamera = 17f;
+    private static float partOfViewToSpawn = 0.5f;
 
     public static Vector3 RandomPointInFrustum()
     {
@@ -27,7 +28,7 @@ public static class CameraUtilities
 
     public static float FrustumHeight(float dist)
     {
-        return 2.0f * dist * Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        return 2.0f * dist * Mathf.Tan(mainCamera.fieldOfView * 0.5f * Mathf.Deg2Rad * partOfViewToSpawn);
     }
 
     public static float FrustumWidth(float height)

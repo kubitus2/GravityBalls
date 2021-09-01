@@ -19,7 +19,7 @@ public class Ball : MonoBehaviour
             return GetComponent<Attractor>();
         }
     }
-    
+
     private float initialMass;
 
     List<GameObject> ballPool = new List<GameObject>();
@@ -67,7 +67,7 @@ public class Ball : MonoBehaviour
 
     float RecalculateRadius(float a, float b)
     {
-        return Mathf.Sqrt(a * a + b * b) * 4f * Mathf.PI;
+        return Mathf.Sqrt(a * a + b * b);
     }
 
     void Explode()
