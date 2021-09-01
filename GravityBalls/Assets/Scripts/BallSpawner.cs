@@ -7,7 +7,7 @@ public class BallSpawner : MonoBehaviour
     public delegate void RevertGravity();
     public static event RevertGravity OnGravityRevert;
 
-    int numOfBalls;
+    public int numOfBalls;
 
     [SerializeField]
     [Range(2, 250)]
@@ -70,8 +70,8 @@ public class BallSpawner : MonoBehaviour
     {
         while(doInstantiate)
         {
-            Debug.Log(numOfBalls);
             numOfBalls++;
+            Debug.Log(numOfBalls);
             Instantiate(prefab, RandomPointInFrustum(), Quaternion.identity);
             yield return new WaitForSeconds(interval);
         }
@@ -79,7 +79,7 @@ public class BallSpawner : MonoBehaviour
 
     void Update()
     {
-        if (numOfBalls > maxNumberOfBalls)
+        if (numOfBalls >= maxNumberOfBalls)
         {
             doInstantiate = false;
             OnGravityRevert();
