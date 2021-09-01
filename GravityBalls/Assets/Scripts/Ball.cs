@@ -24,7 +24,7 @@ public class Ball : MonoBehaviour
 
     List<GameObject> ballPool = new List<GameObject>();
 
-    void Start()
+    void Awake()
     {
         initialMass = rb.mass;
     }
