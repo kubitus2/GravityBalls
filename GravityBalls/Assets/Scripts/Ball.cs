@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    [HideInInspector]
+    public bool reactivated;
+
+    [SerializeField]
+    [Range(25, 120)]
+    private float explosionSpeed = 50f;
+
     private Rigidbody rb 
     {
         get 
@@ -24,8 +31,18 @@ public class Ball : MonoBehaviour
 
     List<GameObject> ballPool = new List<GameObject>();
 
+    void OnEnable()
+    {
+        if (reactivated)
+        {
+            AddRandomVelocity(explosionSpeed);
+            StartCoroutine(CollisionSleep(0.5f));
+        }
+    }
+
     void Awake()
     {
+        reactivated = false;
         initialMass = rb.mass;
     }
 
@@ -54,9 +71,9 @@ public class Ball : MonoBehaviour
 
     void Absorb(GameObject obj)
     {
-        float oldR = this.transform.localScale.x / 2;
+        float oldR = this.transform.localScale.x;
         float R = RecalculateRadius(this.transform.localScale.x, obj.transform.localScale.x);
-        float change = (R - oldR) * 2;
+        float change = R - oldR;
 
         this.transform.localScale += new Vector3(change, change, change);
         rb.mass += obj.GetComponent<Rigidbody>().mass;
@@ -74,12 +91,19 @@ public class Ball : MonoBehaviour
     {
         foreach(var ball in ballPool)
         {
-            ball.GetComponent<Attractor>().reactivated = true;
+            ball.GetComponent<Ball>().reactivated = true;
             ball.transform.position = transform.position;
             ball.SetActive(true);
         }
 
         gameObject.SetActive(false);
+    }
+
+    void AddRandomVelocity(float speed)
+    {
+        Vector3 randVelocity = Random.insideUnitSphere;
+        randVelocity = randVelocity.normalized * speed;
+        rb.velocity = randVelocity;
     }
 
     void FixedUpdate()
@@ -88,5 +112,20 @@ public class Ball : MonoBehaviour
         {
             Explode();
         }
+    }
+
+    IEnumerator CollisionSleep(float t)
+    {
+        yield return ToggleCollisions();
+        yield return new WaitForSeconds(t);
+        yield return ToggleCollisions();
+    }
+
+    IEnumerator ToggleCollisions()
+    {
+        bool dc = rb.detectCollisions;
+        rb.detectCollisions = !dc;
+
+        yield return null;
     }
 }
