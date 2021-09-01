@@ -4,8 +4,6 @@ using UnityEngine;
 
 public static class AudioManager 
 {
-
-
     public enum Sound 
     {
         Absorption,
@@ -26,6 +24,7 @@ public static class AudioManager
         AudioClip clip = null;
         foreach (SoundAssets.SoundAudioClip audioClip in SoundAssets.i.soundAudioClipArray)
         {
+            Debug.Log(audioClip.sound);
             if(audioClip.sound == sound)
             {
                 clip = audioClip.clip;

@@ -11,7 +11,7 @@ public class SoundAssets : MonoBehaviour
         get
         {
             if (_i == null)
-                _i = (Instantiate(Resources.Load("main")) as GameObject).GetComponent<SoundAssets>();
+                _i = Instantiate(Resources.Load<SoundAssets>("SoundAssets"));
             return _i; 
         }
     }

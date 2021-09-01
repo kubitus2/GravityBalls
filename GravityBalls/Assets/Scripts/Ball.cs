@@ -80,6 +80,8 @@ public class Ball : MonoBehaviour
 
         obj.SetActive(false);
         ballPool.Add(obj);
+        
+        AudioManager.PlaySound(AudioManager.Sound.Absorption);
     }
 
     float RecalculateRadius(float a, float b)
@@ -96,6 +98,7 @@ public class Ball : MonoBehaviour
             ball.SetActive(true);
         }
 
+        AudioManager.PlaySound(AudioManager.Sound.Explosion);
         gameObject.SetActive(false);
     }
 

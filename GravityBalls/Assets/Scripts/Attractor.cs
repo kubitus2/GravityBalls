@@ -6,7 +6,6 @@ public class Attractor : MonoBehaviour
 {
     public float mass;
     public float speed;
-    public bool reactivated;
 
     private Rigidbody rb 
     {
@@ -23,17 +22,10 @@ public class Attractor : MonoBehaviour
         BallSpawner.OnGravityRevert += RevertGravity;
 
         Gravity.Register(this);
-
-        if (reactivated)
-        {
-            AddRandomVelocity(100f);
-            StartCoroutine(CollisionSleep(0.5f));
-        }
     }
 
     void Awake()
     {
-        reactivated = false;
         mass = rb.mass;
         forceMultiplier = 1.0f;
     }
@@ -83,31 +75,10 @@ public class Attractor : MonoBehaviour
         return !float.IsNaN(v.x) &&  !float.IsNaN(v.y) && !float.IsNaN(v.z);
     }
 
-    void AddRandomVelocity(float speed)
-    {
-        Vector3 randVelocity = Random.insideUnitSphere;
-        randVelocity = randVelocity.normalized * speed;
-        rb.velocity = randVelocity;
-    }
-
-    IEnumerator CollisionSleep(float t)
-    {
-        yield return ToggleCollisions();
-        yield return new WaitForSeconds(t);
-        yield return ToggleCollisions();
-    }
-
-    IEnumerator ToggleCollisions()
-    {
-        bool dc = rb.detectCollisions;
-        rb.detectCollisions = !dc;
-
-        yield return null;
-    }
-
     void RevertGravity()
     {
         forceMultiplier = -1.0f;
+        AudioManager.PlaySound(AudioManager.Sound.GravityReversion);
     }
 
     void OnDisable()
