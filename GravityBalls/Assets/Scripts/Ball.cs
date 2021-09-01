@@ -4,19 +4,31 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    Rigidbody rb;
-    float initialMass;
+    private Rigidbody rb 
+    {
+        get 
+        {
+            return GetComponent<Rigidbody>();
+        }
+    }
 
-    int constituentBalls;
+    private Attractor a
+    {
+        get 
+        {
+            return GetComponent<Attractor>();
+        }
+    }
+    
+    private float initialMass;
 
     List<GameObject> ballPool = new List<GameObject>();
 
-    void Awake()
+    void Start()
     {
-        constituentBalls = 1;
-        rb = GetComponent<Rigidbody>();
         initialMass = rb.mass;
     }
+
     void OnCollisionEnter(Collision col)
     {
         if(ShouldAbsorb(col.gameObject))
@@ -27,13 +39,16 @@ public class Ball : MonoBehaviour
 
     bool ShouldAbsorb(GameObject toCompare)
     {
-        if(this.rb.mass == toCompare.GetComponent<Rigidbody>().mass)
+        Rigidbody rbC = toCompare.GetComponent<Rigidbody>();
+        Attractor aC = toCompare.GetComponent<Attractor>();
+
+        if(this.rb.mass == rbC.mass)
         {
-            return this.GetComponent<Attractor>().speed > toCompare.GetComponent<Attractor>().speed;
+            return a.speed > aC.speed;
         }
         else
         {
-            return this.rb.mass > toCompare.GetComponent<Rigidbody>().mass;
+            return rb.mass > rbC.mass;
         }  
     }
 
@@ -48,20 +63,11 @@ public class Ball : MonoBehaviour
 
         obj.SetActive(false);
         ballPool.Add(obj);
-        constituentBalls++;
-    }
-
-    void Update()
-    {
-        if(rb.mass > 50 * initialMass)
-        {
-            Explode();
-        }
     }
 
     float RecalculateRadius(float a, float b)
     {
-        return Mathf.Sqrt(a * a + b * b);
+        return Mathf.Sqrt(a * a + b * b) * 4f * Mathf.PI;
     }
 
     void Explode()
@@ -76,5 +82,11 @@ public class Ball : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-
+    void FixedUpdate()
+    {
+        if(rb.mass > 50 * initialMass)
+        {
+            Explode();
+        }
+    }
 }

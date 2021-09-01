@@ -10,7 +10,16 @@ public class UI : MonoBehaviour
 
     void Update()
     {
-        counter.text = string.Format("Balls created so far: {0}", spawner.numOfBalls);
+        DisplayText();
+        
+        if (Input.GetKeyDown("escape"))
+        {
+            Application.Quit(0);
+        }
     }
 
+    void DisplayText()
+    {
+        counter.text = string.Format("Balls created so far: {0}", spawner.numOfBalls);
+    }
 }

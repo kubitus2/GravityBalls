@@ -4,18 +4,17 @@ using UnityEngine;
 
 public static class CameraUtilities
 {
-
     private static Camera mainCamera = Camera.main;
-    private static float maxDistFromCamera = 30;
+    private static float maxDistFromCamera = 30f;
 
     public static Vector3 RandomPointInFrustum()
     {
-        float randZ = Random.Range(mainCamera.nearClipPlane * 4f, maxDistFromCamera);
+        float randZ = Random.Range(mainCamera.nearClipPlane * 5f, maxDistFromCamera);
         
         return new Vector3(0f, 0f, randZ) + RandomPointOnFrustumPlane(randZ);
     }
 
-    static Vector3 RandomPointOnFrustumPlane(float dist)
+    public static Vector3 RandomPointOnFrustumPlane(float dist)
     {
         float h = FrustumHeight(dist);
         float w = FrustumWidth(h);

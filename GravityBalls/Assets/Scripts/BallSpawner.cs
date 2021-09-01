@@ -18,16 +18,17 @@ public class BallSpawner : MonoBehaviour
     [SerializeField]
     private float intervalBetweenSpawns;
 
-    bool doInstantiate = true;
+    bool doInstantiate;
 
     void Awake()
     {
+        numOfBalls = 0;
+        doInstantiate = true;
         Camera.main.farClipPlane = 1000f;
     }
 
     void Start()
     {
-        numOfBalls = 0;
         StartCoroutine(SpawnBalls(intervalBetweenSpawns));
     }
 
@@ -36,7 +37,6 @@ public class BallSpawner : MonoBehaviour
         while(doInstantiate)
         {
             numOfBalls++;
-            Debug.Log(numOfBalls);
             Instantiate(prefab, CameraUtilities.RandomPointInFrustum(), Quaternion.identity);
             yield return new WaitForSeconds(interval);
         }
@@ -48,7 +48,6 @@ public class BallSpawner : MonoBehaviour
         {
             doInstantiate = false;
             OnGravityRevert();
-        }
-            
+        }   
     }
 }

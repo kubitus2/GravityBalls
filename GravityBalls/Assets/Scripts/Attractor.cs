@@ -6,16 +6,22 @@ public class Attractor : MonoBehaviour
 {
     public float mass;
     public float speed;
-
     public bool reactivated;
 
-    private Rigidbody rb {get {return GetComponent<Rigidbody>();}}
+    private Rigidbody rb 
+    {
+        get 
+        {
+            return GetComponent<Rigidbody>();
+        }
+    }
 
     private float forceMultiplier;
 
     void OnEnable()
     {
         BallSpawner.OnGravityRevert += RevertGravity;
+
         Gravity.Register(this);
 
         if (reactivated)
@@ -49,15 +55,32 @@ public class Attractor : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(rb.mass != mass)
-            mass = rb.mass;
+        UpdateSpeed();
+        UpdateMass();
+        UpdateForce();
+    }
 
-        speed = rb.velocity.magnitude;
-
+    void UpdateForce()
+    {
         Vector3 f = Vector3.zero;
         f = CalculateForce();
-        if(!float.IsNaN(f.x) &&  !float.IsNaN(f.y) && !float.IsNaN(f.z))
+        if(CheckIfNotNaN(f))
             rb.AddForce(f);
+    }
+
+    void UpdateMass()
+    {
+        if(rb.mass != mass)
+            mass = rb.mass;
+    }
+    void UpdateSpeed()
+    {
+        speed = rb.velocity.magnitude;
+    }
+
+    bool CheckIfNotNaN(Vector3 v)
+    {
+        return !float.IsNaN(v.x) &&  !float.IsNaN(v.y) && !float.IsNaN(v.z);
     }
 
     void AddRandomVelocity(float speed)
@@ -73,10 +96,11 @@ public class Attractor : MonoBehaviour
         yield return new WaitForSeconds(t);
         yield return ToggleCollisions();
     }
+
     IEnumerator ToggleCollisions()
     {
         bool dc = rb.detectCollisions;
-        rb.detectCollisions = !rb;
+        rb.detectCollisions = !dc;
 
         yield return null;
     }
