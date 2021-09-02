@@ -228,7 +228,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 9e73cb2f7abb4e34aa843ae2c98044a0, type: 3}
     m_FontSize: 36
     m_FontStyle: 0
     m_BestFit: 0
@@ -589,7 +589,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 9e73cb2f7abb4e34aa843ae2c98044a0, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
@@ -668,7 +668,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 9e73cb2f7abb4e34aa843ae2c98044a0, type: 3}
     m_FontSize: 12
     m_FontStyle: 0
     m_BestFit: 0
@@ -1011,6 +1011,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9121758649249236516, guid: e41acf481929a964ea113d86eba25ed2, type: 3}
       propertyPath: soundAudioClipArray.Array.data[1].targetAMGroup
+      value: 
+      objectReference: {fileID: 24300002, guid: 4f7a976287b90a348a0429d4c1fd77e9, type: 2}
+    - target: {fileID: 9121758649249236516, guid: e41acf481929a964ea113d86eba25ed2, type: 3}
+      propertyPath: soundAudioClipArray.Array.data[2].targetAMGroup
       value: 
       objectReference: {fileID: 24300002, guid: 4f7a976287b90a348a0429d4c1fd77e9, type: 2}
     m_RemovedComponents: []

@@ -55,7 +55,5 @@ public class UI : MonoBehaviour
         }
 
         am.SetFloat("MasterVol", volume);
-
-        Debug.Log(volume);
     }
 }
