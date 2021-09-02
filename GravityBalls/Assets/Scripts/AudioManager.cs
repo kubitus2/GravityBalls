@@ -40,9 +40,4 @@ public static class AudioManager
         return clip;
     }
 
-    private static IEnumerator SkipFrame()
-    {
-        yield return null;
-    }
-
 }
