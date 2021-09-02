@@ -49,7 +49,7 @@ MonoBehaviour:
     targetAMGroup: {fileID: 24300002, guid: 4f7a976287b90a348a0429d4c1fd77e9, type: 2}
   - sound: 1
     clip: {fileID: 8300000, guid: 2f1163d9868a88d478d4f3f3aa3b55c0, type: 3}
-    targetAMGroup: {fileID: -9040428010010885671, guid: 4f7a976287b90a348a0429d4c1fd77e9, type: 2}
+    targetAMGroup: {fileID: -1150469503386122568, guid: 4f7a976287b90a348a0429d4c1fd77e9, type: 2}
   - sound: 2
     clip: {fileID: 8300000, guid: 0d4571dc69e29af4ab23159ded2e5074, type: 3}
-    targetAMGroup: {fileID: 2009867745437386945, guid: 4f7a976287b90a348a0429d4c1fd77e9, type: 2}
+    targetAMGroup: {fileID: 1576943945162896872, guid: 4f7a976287b90a348a0429d4c1fd77e9, type: 2}
