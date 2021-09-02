@@ -11,4 +11,5 @@ It's basicaly N-body simulation. The simulation contains Audio Manager script an
 
 ## Possible improvements
 
-Optimising simulation by some sort of spatial compartmentalisation or delegating calculations to compute shader.
+ * Optimising simulation by some sort of spatial compartmentalisation or delegating calculations to compute shader.
+ * Sound is kinda glitchy at the moment and obnoxious but the mute button works which is nice. Possible solution: creating separate object for each type of sound.
