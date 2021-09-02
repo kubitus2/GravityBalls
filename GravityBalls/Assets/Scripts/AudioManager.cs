@@ -4,6 +4,9 @@ using UnityEngine;
 
 public static class AudioManager 
 {
+    private static GameObject oneShotGameObject;
+    private static AudioSource oneShotAudioSource;
+
     public enum Sound 
     {
         Absorption,
@@ -13,10 +16,13 @@ public static class AudioManager
 
     public static void PlaySound(Sound sound)
     {
-        GameObject soundGameObject = new GameObject("Sound");
-        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
+        if(oneShotGameObject == null)
+        {
+            oneShotGameObject = new GameObject("One shot sound");
+            oneShotAudioSource = oneShotGameObject.AddComponent<AudioSource>();
+        }
 
-        audioSource.PlayOneShot(GetAudioClip(sound));
+        oneShotAudioSource.PlayOneShot(GetAudioClip(sound));
     }
 
     private static AudioClip GetAudioClip(Sound sound)
@@ -32,6 +38,11 @@ public static class AudioManager
         }
 
         return clip;
+    }
+
+    private static IEnumerator SkipFrame()
+    {
+        yield return null;
     }
 
 }

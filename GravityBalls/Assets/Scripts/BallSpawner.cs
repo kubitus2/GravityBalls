@@ -18,13 +18,15 @@ public class BallSpawner : MonoBehaviour
     [SerializeField]
     private float intervalBetweenSpawns;
 
-    bool doInstantiate;
+    private bool doInstantiate;
+    private bool didRevert;
 
     void Awake()
     {
         numOfBalls = 0;
         doInstantiate = true;
         Camera.main.farClipPlane = 1000f;
+        didRevert = false;
     }
 
     void Start()
@@ -44,10 +46,11 @@ public class BallSpawner : MonoBehaviour
 
     void Update()
     {
-        if (numOfBalls >= maxNumberOfBalls)
+        if (numOfBalls >= maxNumberOfBalls && !didRevert)
         {
             doInstantiate = false;
             OnGravityRevert();
+            didRevert = true;
         }   
     }
 }
