@@ -1,4 +1,6 @@
 # GravityBalls
+
+
 Simple gravity simulation in Unity - it uses Newtonian physics scaled so that G = 66.7. The simulation runs as follows:
   * Every quarter of a second a ball is created randomly inside camera view
   * Each ball has it's own gravity fields and attracts others
@@ -13,3 +15,5 @@ It's basicaly N-body simulation. The simulation contains Audio Manager script an
 
  * Optimising simulation by some sort of spatial compartmentalisation or delegating calculations to compute shader.
  * Sound is kinda glitchy at the moment and obnoxious but the mute button works which is nice. Possible solution: creating separate object for each type of sound.
+
+![UI Screen](Screen.png)
